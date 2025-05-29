@@ -3,19 +3,16 @@ public class Main {
 
         OptionManager optionManager = OptionManager.getInstace();
 
-        optionManager.mainMenu();
-        try {
-            optionManager.operation();
-        } catch (CalculatorException e) {
-            System.out.println("Error: " + e.getMessage());
+        boolean nextOperation = true;
+        while (nextOperation){
+            try {
+                optionManager.mainMenu();
+                nextOperation = optionManager.operation();
+            } catch (CalculatorException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
 
-        try {
-            System.out.println("Cerrando el scanner");
-            optionManager.closeScannerInstance();
-
-        }catch (Exception e){
-            System.out.println();
-        }
+        optionManager.closeScannerInstance();
     }
 }

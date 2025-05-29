@@ -19,6 +19,7 @@ public class OptionManager {
     private Map<String, String> mapOption;
     private Scanner scanner;
     private Calculator calculator;
+    private double result;
 
     private OptionManager() {
         mapOption = new HashMap<String, String>();
@@ -65,49 +66,51 @@ public class OptionManager {
 
     public boolean operation() throws CalculatorException {
         String input = scanner.nextLine();
-        switch (mapOption.get(input)) {
+        boolean nextOperation = switch (mapOption.get(input)) {
             case ADDITION_OPTION:
                 System.out.println(ADDITION_OPTION);
                 calculator.setA(inputNumber(A_KEY));
                 calculator.setB(inputNumber(B_KEY));
-                calculator.addition();
-                return true;
+                result = calculator.addition();
+                yield true;
             case SUBTRACTION_OPTION:
                 System.out.println(SUBTRACTION_OPTION);
                 calculator.setA(inputNumber(A_KEY));
                 calculator.setB(inputNumber(B_KEY));
-                calculator.subtraction();
-                return true;
+                result = calculator.subtraction();
+                yield true;
             case MULTIPLY_OPTION:
                 System.out.println(MULTIPLY_OPTION);
                 calculator.setA(inputNumber(A_KEY));
                 calculator.setB(inputNumber(B_KEY));
-                calculator.multiply();
-                return true;
+                result = calculator.multiply();
+                yield true;
             case SPLIT_OPTION:
                 System.out.println(SPLIT_OPTION);
                 calculator.setA(inputNumber(A_KEY));
                 calculator.setB(inputNumber(B_KEY));
-                calculator.split();
-                return true;
+                result = calculator.split();
+                yield true;
             case POWER_OPTION:
                 System.out.println(POWER_OPTION);
                 calculator.setA(inputNumber(A_KEY));
                 calculator.setB(inputNumber(B_KEY));
-                calculator.power();
-                return true;
+                result = calculator.power();
+                yield true;
             case SQUARE_ROOT_OPTION:
                 System.out.println(SQUARE_ROOT_OPTION);
                 calculator.setA(inputNumber(A_KEY));
-                calculator.square();
-                return true;
+                result = calculator.square();
+                yield true;
             case CLOSE_OPTION:
                 System.out.println(CLOSE_OPTION);
                 closeScannerInstance();
-                return false;
+                yield false;
             default:
                 System.out.println(NO_VALID_OPTION);
-                return true;
-        }
+                yield true;
+        };
+        System.out.println("El resultado es: " + result);
+        return nextOperation;
     }
 }
